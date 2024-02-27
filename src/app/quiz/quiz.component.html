@@ -1,0 +1,31 @@
+<div class="quiz__container">
+  <div class="quiz_logo">
+    <img src="assets/imgs/logo.png" alt="" />
+    <h3>{{ title }}</h3>
+  </div>
+
+  <ng-container *ngIf="!finished; else finishedTemplate">
+    <ng-container *ngIf="questionSelected$ | async as questionSelected">
+      <div class="quiz_questions">
+        <h3>{{ questionSelected?.question }}</h3>
+      </div>
+
+      <div class="quiz_options">
+        <button
+          *ngFor="let option of questionSelected.options; let i = index"
+          (click)="playerChoose(option.alias)"
+          class="btn-option"
+        >
+          {{ option.name }}
+        </button>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #finishedTemplate>
+    <div class="quiz_results">
+      <h1>Result:</h1>
+      <p>{{ answerSelected }}</p>
+    </div>
+  </ng-template>
+</div>
